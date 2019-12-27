@@ -1,7 +1,8 @@
 import React from 'react';
 import {HeaderWrapper,Logo,Nav,NavItem,NavSearch,Addition,Button,SearchWrapper} from './style.js';
 import {CSSTransition} from 'react-transition-group';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import * as headerActions from '../../store/header/createAction';
 
 //无状态组件
 const Header = (props)=>{
@@ -39,22 +40,16 @@ const Header = (props)=>{
 
 	const mapStateToProps = (state)=>{
 		return {
-			searchFocused: state.searchFocused
+			searchFocused: state.get('header').get('searchFocused')
 		}
 	}
 	const mapDispathToProps = (dispath)=>{
 		return {
 			handleFocus(){
-				const action = {
-					type:'search_focus'
-				}
-				dispath(action);
+				dispath(headerActions.handleFocusAction());
 			},
 			handleBlur(){
-				const action = {
-					type:'search_blur'
-				}
-				dispath(action);
+				dispath(headerActions.handleBlurAction());
 			}
 		}
 	}
