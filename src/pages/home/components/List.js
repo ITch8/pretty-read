@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import {List,Icon,message, Avatar, Spin} from 'antd';
+import {List,Icon, Avatar,Spin,Skeleton,BackTop } from 'antd';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store';
 
@@ -7,84 +7,19 @@ import InfiniteScroll from 'react-infinite-scroller';
 // import { Link } from 'react-router-dom';
 
 class BlogList extends PureComponent {
-	
-	constructor(props) {
-	    super(props);
-		this.state = {
-			data: [{
-			"href": "http://ant.design",
-			"title": "ant design part ",
-			"avatar": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-			"description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-			"content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
-		}, {
-			"href": "http://ant.design",
-			"title": "ant design part ",
-			"avatar": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-			"description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-			"content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
-		}, {
-			"href": "http://ant.design",
-			"title": "ant design part ",
-			"avatar": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-			"description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-			"content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
-		}, {
-			"href": "http://ant.design",
-			"title": "ant design part ",
-			"avatar": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-			"description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-			"content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
-		}, {
-			"href": "http://ant.design",
-			"title": "ant design part ",
-			"avatar": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-			"description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-			"content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
-		}, {
-			"href": "http://ant.design",
-			"title": "ant design part ",
-			"avatar": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-			"description": "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-			"content": "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
-		}],
-			loading: false,
-			hasMore: true,
-		}
-		
+
+	handleInfiniteOnLoad= ()=>{
+		console.log(`handleInfiniteOnLoad...`)
+		this.props.showLoading(true);
+		this.props.getMoreList(this.props.page);
 	}
-	
-	
-	
-	handleInfiniteOnLoad(){
-		 let { data } = this.state;
-		    this.setState({
-		      loading:true,
-		    });
-			
-			setTimeout(()=>{
-				this.setState({
-					data,
-				  loading: false,
-				});
-			},2000)
-			
-		    if (data.length > 14) {
-		      message.warning('Infinite List loaded all');
-		      this.setState({
-		        hasMore: false,
-		        loading: false,
-		      });
-		      return;
-		    }
-			
-			
-			
-	}
+
 	
 	render() {
-		const { data} = this.props;
-		
+		const { list,showMore,loading} = this.props;
+		console.log(`list----${list}`)
+		console.log(`showMore----${showMore}`)
+		console.log(`loading----${loading}`)
 		const IconText = ({ type, text }) => (
 		  <span>
 		    <Icon type={type} style={{ marginRight: 8 }} />
@@ -93,49 +28,63 @@ class BlogList extends PureComponent {
 		);
 		
 		return (
-		<div className="demo-infinite-container">
-		        <InfiniteScroll
-		          initialLoad={false}
-		          pageStart={0}
-		          loadMore={this.handleInfiniteOnLoad}
-		          hasMore={!this.state.loading && this.state.hasMore}
-		          useWindow={false}
-		        >
-			<List
-				dataSource={data}
-				renderItem={item => (
-				  <List.Item key={item.id}>
-					<List.Item.Meta
-					  avatar={
-						<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-					  }
-					  title={<a href="https://ant.design">{item.name.last}</a>}
-					  description={item.email}
-					/>
-					<div>Content</div>
-				  </List.Item>
-				)}
-			  >
-				{this.state.loading && this.state.hasMore && (
-				  <div className="demo-loading-container">
-					<Spin />
-				  </div>
-				)}
-			  </List>
-			  </InfiniteScroll>
-			</div>
+			<InfiniteScroll
+				pageStart={0}
+				loadMore={this.handleInfiniteOnLoad}
+				hasMore={!loading && showMore}
+			>
+				<List
+					itemLayout="vertical"
+					dataSource={list}
+					renderItem={item => (
+						<List.Item
+							key={item.title}
+							actions={[
+								<IconText type="star-o" text="156" key="list-vertical-star-o" />,
+								<IconText type="like-o" text="156" key="list-vertical-like-o" />,
+								<IconText type="message" text="2" key="list-vertical-message" />,
+							]}
+							extra={
+								<img
+									width={152}
+									alt="logo"
+									src={item.image}
+								/>
+							}
+						>
+							<Skeleton loading={loading} active avatar>
+								<List.Item.Meta
+									title={<a href={item.href}>{item.title}</a>}
+									description={item.description}
+								/>
+							</Skeleton>
+						</List.Item>
+					)}>
+					{loading && showMore && (
+						<div className="loading-container">
+							<Spin />
+						</div>
+					)}
+				</List>
+				<BackTop />
+			</InfiniteScroll>
 		)
 	}
 }
 
 const mapState = (state) => ({
 	list: state.getIn(['home', 'articleList']),
-	page: state.getIn(['home', 'articlePage'])
+	page: state.getIn(['home', 'articlePage']),
+	showMore: state.getIn(['home', 'showMore']),
+	loading: state.getIn(['home', 'loading'])
 });
 
 const mapDispatch = (dispatch) => ({
 	getMoreList(page) {
 		dispatch(actionCreators.getMoreList(page))
+	},
+	showLoading(showLoading) {
+		dispatch(actionCreators.showLoading(true))
 	}
 })
 

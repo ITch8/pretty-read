@@ -3,6 +3,17 @@ import styled from 'styled-components';
 export const HomeWrapper = styled.div`
 	width: 960px;
 	margin: 0 auto;
+	padding: 50px 0;
+        .loading-container {
+          position: absolute;
+          bottom: 40px;
+          width: 100%;
+          text-align: center;
+        }
+        .ant-list-vertical .ant-list-item-meta-title{
+                font-weight: 700;
+                font-size: 18px;
+        }
 `;
 
 export const HomeLeft = styled.div`
@@ -21,104 +32,51 @@ export const HomeRight = styled.div`
 	float: right;
 `;
 
-export const TopicWrapper = styled.div`
-	overflow: hidden;
-	padding: 20px 0 10px 0;
-	margin-left: -18px;
-	border-bottom: 1px solid #dcdcdc;
-`;
-
-export const TopicItem = styled.div`
-	float: left;
-	height: 32px;
-	line-height: 32px;
-	margin-left: 18px;
-	margin-bottom: 18px;
-	padding-right: 10px
-	background: #f7f7f7;
-	font-size: 14px;
-	color: #000;
-	border: 1px solid #dcdcdc;
-	border-radius: 4px;
-	.topic-pic {
-		display: block;
-		float: left;
-		width: 32px;
-		height: 32px;
-		margin-right: 10px;
-	}
-`;
-
-export const ListItem = styled.div`
-	overflow: hidden;
-	padding: 20px 0;
-	border-bottom: 1px solid #dcdcdc;
-	.pic {
-		display: block;
-		width: 125px;
-		height: 100px;
-		float: right;
-		border-radius: 10px;
-	}
-`;
-
-export const ListInfo =	styled.div`
-	width: 500px;
-	float: left;
-	.title {
-		line-height: 27px;
-		font-size: 18px;
-		font-weight: bold;
-		color: #333;
-	}
-	.desc {
-		line-height: 24px;
-		font-size: 13px;
-		color: #999;
-	}
-`;
-
 export const RecommendWrapper = styled.div`
 	margin: 30px 0;
 	width: 280px;
 `;
 
 export const RecommendItem = styled.div`
-	width: 280px;
-	height: 50px;
 	background: url(${(props) => props.imgUrl});
 	background-size: contain;
+    width: 100%;
+    min-height: 50px;
+    margin-bottom: 6px;
+    border-radius: 4px;
 `;
 
 export const WriterWrapper = styled.div`
 	width: 278px;
-	border: 1px solid #dcdcdc;
 	border-radius: 3px;
 	height: 300px;
 	line-height: 300px;
 	text-align: center;
+	    .ant-card-head-title{
+            text-align: left;
+            font-size: 14px;
+            color: #969696;
+	    }
+	    .ant-card-body{
+	        padding:10px;
+	    }
+	    .ant-list-item{
+	        padding:5px 0;
+	    }
+	    .ant-list-item-meta-title{
+	         text-align: left;
+	    }
+	    .ant-list-item-meta-description{
+	        margin-top: 2px;
+            font-size: 12px;
+            color: #969696;
+            text-align: left;
+	    }
+	    .ant-btn-link{
+	        color:#969696;
+	    }
+	    .ant-btn{
+            font-size:12px;
+            padding: 0 5px;
+        }
 `;
-
-export const LoadMore = styled.div`
-	width: 100%;
-	height: 40px;
-	line-height: 40px;
-	margin: 30px 0;
-	background: #a5a5a5;
-	text-align:center;
-	border-radius: 20px;
-	color: #fff;
-	cursor: pointer;
-`;
-
-export const BackTop = styled.div`
-	position: fixed;
-	right: 100px;
-	bottom: 100px;
-	width: 60px;
-	height: 60px;
-	line-height: 60px;
-	text-align: center;
-	border: 1px solid #ccc;
-	font-size: 14px;
-`

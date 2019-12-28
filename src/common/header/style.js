@@ -2,16 +2,18 @@ import styled from 'styled-components';
 import logoPic from '../../statics/logo.png';
 
 export const HeaderWrapper = styled.div`
-	z-index: 1;
-	position: relative;
+	z-index: 999;
 	height: 56px;
 	border-bottom: 1px solid #f0f0f0;
+	position: fixed;
+    width: 100%;
+    background: #ffffff;
 `;
 
 export const Logo = styled.div`
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: 80px;
 	display: block;
 	width: 100px;
 	height: 56px;
@@ -22,7 +24,7 @@ export const Logo = styled.div`
 export const Nav = styled.div`
 	width: 960px;
 	height: 100%;
-	padding-right: 70px;
+	padding-right: 0;
 	box-sizing: border-box;
 	margin: 0 auto;
 `;
